@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel de Administração - Micheli Personalizados</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Painel de Controle</h1>
+            <a href="{{ url_for('logout_admin') }}" class="btn-sair">Sair</a>
+        </div>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="message-{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Bem-vindo(a), Administrador(a)!</h2>
+
+        <section class="card-gerenciamento">
+            <h3>🎨 Gerenciar Imagens de Estampa</h3>
+            <p class="instrucao">Selecione a imagem de estampa que deseja substituir e, em seguida, escolha o novo arquivo para o upload.</p>
+
+            <form method="POST" action="{{ url_for('upload_imagem') }}" enctype="multipart/form-data" class="upload-form">
+
+                <div class="form-group">
+                    <label for="target_file">1. Imagem a ser Substituída:</label>
+                    <select name="target_file" id="target_file" required>
+                        <option value="">-- Selecione uma estampa --</option>
+                        <option value="astronauta.png">Imagem 1</option>
+                        <option value="bts01.png">Imagem 2</option>
+                        <option value="divertidamente01.png">Imagem 3</option>
+                        <option value="minions01.png">Imagem 4</option>
+                        <option value="spíder01.png">Imagem 5</option>
+                        <option value="sonic02.png">Imagem 6</option>
+                        <option value="soccer01.png">Imagem 7</option>
+                        <option value="soccer03.png">Imagem 8</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="new_file">2. NOVO Arquivo de Imagem (.png, .jpg, .jpeg):</label>
+                    <input type="file" id="new_file" name="new_file" accept="image/png, image/jpeg, image/jpg" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Substituir Imagem</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Micheli Personalizados - Painel ADM</p>
+    </footer>
+</body>
+</html>
